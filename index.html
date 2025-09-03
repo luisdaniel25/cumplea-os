@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feliz Cumpleaños Mi Amor ❤️</title>
+    <meta name="theme-color" content="#ff4b5c" />
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff4081">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Tipografía -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Preload imágenes clave -->
+    <link rel="preload" href="img/Juntos.jpg" as="image">
+    <link rel="preload" href="img/foto1.jpg" as="image">
+    <link rel="preload" href="img/foto2.jpg" as="image">
+    <link rel="preload" href="img/foto3.jpg" as="image">
+
+    <style>
+        :root {
+            --accent: #ff4b5c;
+            --accent2: #ff7eb9;
+            --glow: rgba(255, 126, 185, 0.45);
+            --glass: rgba(0, 0, 0, 0.55);
+            --glass-strong: rgba(0, 0, 0, 0.72);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: url('img/Juntos.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* overlay para legibilidad */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.55));
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 4rem;
+        }
+
+        /* ---- h1 mejorado: mantiene Pacifico pero con brillo animado ---- */
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+
+            /* brillo animado */
+            background: linear-gradient(90deg, #ff7eb9, #ffcd3c, #4bf3ff, #ff7eb9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 6s linear infinite;
+        }
+
+        @keyframes shine {
+            from {
+                background-position: 0% 50%;
+            }
+
+            to {
+                background-position: 200% 50%;
+            }
+        }
+
+        .heart {
+            color: var(--accent);
+            animation: heartbeat 1s infinite;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.28);
+            }
+        }
+
+        .glass-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+        }
+
+        .btn-glow {
+            box-shadow: 0 0 12px var(--glow);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        .btn-glow:focus,
+        .btn-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 22px var(--glow);
+        }
+
+        /* --- Botón principal degradado romántico --- */
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4b5c, #ff7eb9);
+            border: none;
+            color: #fff;
+            box-shadow: 0 0 12px var(--glow);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 22px var(--glow);
+        }
+
+        /* Slideshow */
+        #recuerdos {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: auto;
+            background-color: #000;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity .8s ease;
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            background-color: #000;
+            user-select: none;
+            margin: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.9rem 1rem;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.45) 60%, rgba(0, 0, 0, 0.7) 100%);
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                max-height: 400px;
+            }
+        }
+
+        .slide-controls {
+            position: absolute;
+            inset: auto 8px 8px 8px;
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .slide-controls .btn {
+            pointer-events: all;
+        }
+
+        /* toast */
+        .toast-msg {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 20px;
+            padding: .8rem 1.2rem;
+            background: var(--glass-strong);
+            border-radius: .75rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: none;
+            z-index: 1050;
+            color: #fff;
+        }
+
+        /* Estrellas */
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .stars span {
+            position: absolute;
+            display: block;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            opacity: .9;
+            animation: twinkle 2.4s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: .25;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(-6px) scale(1.2);
+            }
+        }
+
+        /* Juego - corazones */
+        .game-heart {
+            position: absolute;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            z-index: 1060;
+        }
+
+        /* focus visible */
+        :focus {
+            outline: 3px solid rgba(255, 126, 185, 0.25);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 768px) {
+            #recuerdos {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars" aria-hidden="true">
+        <!-- generaremos unas pocas estrellas con JS -->
+    </div>
+
+    <main class="page container text-center pt-5" role="main">
+        <header class="mb-3">
+            <h1 class="mx-auto">¡Feliz Cumpleaños Mi Amor <span class="heart" aria-hidden="true">❤️</span></h1>
+            <p class="lead">Hoy cumples <strong>19 años</strong>. Te amo más de lo que las palabras pueden decir. 💖</p>
+        </header>
+
+        <!-- Slideshow -->
+        <section class="card glass-card text-white mx-auto mb-3" style="max-width:900px;">
+            <div id="recuerdos" class="position-relative">
+                <img src="img/foto1.jpg" alt="Recuerdo 1" class="slide active" draggable="false" loading="lazy">
+                <img src="img/foto2.jpg" alt="Recuerdo 2" class="slide" draggable="false" loading="lazy">
+                <img src="img/foto3.jpg" alt="Recuerdo 3" class="slide" draggable="false" loading="lazy">
+                <div class="caption" id="caption" aria-live="polite"></div>
+
+                <div class="slide-controls">
+                    <div class="d-flex gap-2">
+                        <button id="prevSlide" class="btn btn-sm btn-outline-light btn-glow"
+                            aria-label="Anterior">◀</button>
+                        <button id="nextSlide" class="btn btn-sm btn-outline-light btn-glow"
+                            aria-label="Siguiente">▶</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <p id="leadText" class="mb-0">Recuerdos que guardo con cariño.</p>
+            </div>
+        </section>
+
+        <!-- Mensajes progresivos -->
+        <section class="card glass-card text-center text-white mx-auto mb-3" style="max-width:900px;">
+            <div class="card-body" id="message-card" aria-live="polite"></div>
+        </section>
+
+        <p class="mt-3">Con todo mi amor <br><strong> Luis Daniel</strong></p>
+
+        <!-- Controles -->
+        <div class="d-flex gap-2 justify-content-center flex-wrap mt-2 mb-4" role="toolbar" aria-label="Controles">
+            <button id="btn-audio" class="btn btn-danger btn-play btn-glow" aria-pressed="false"
+                aria-label="Reproducir música">🎵 Música</button>
+            <button id="btn-sorpresa" class="btn btn-outline-light btn-glow" aria-label="Mensaje sorpresa">💌 Mensaje
+                sorpresa</button>
+            <button id="btn-juego" class="btn btn-outline-light btn-glow" aria-pressed="false"
+                aria-label="Mini-juego">💖 Mini-juego</button>
+        </div>
+
+        <!-- Mini-juego -->
+        <div id="game" class="text-start d-none mx-auto" style="max-width:900px;">
+            <div class="card glass-card">
+                <div class="card-body position-relative" id="game-area" style="height:300px; overflow:hidden;">
+                    <div class="d-flex justify-content-between">
+                        <div>🎯 Puntos: <span id="score">0</span></div>
+                        <div>⏳ Tiempo: <span id="time" class="timer">30</span>s</div>
+                    </div>
+                    <p class="mt-2 mb-0" style="color: floralwhite;">Toca los corazones que aparezcan. ¡Ganas la mayor
+                        cantidad de puntos y esos
+                        puntos se pagaran con besos! </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast" class="toast-msg" role="status" aria-live="polite"></div>
+    </main>
+
+    <!-- Audio (controlado por botón) -->
+    <audio id="bg-audio" loop preload="none">
+        <source src="audio/cumpleanosfeliz.mp3" type="audio/mpeg">
+        <!-- Si quieres usar una canción local, coloca /audio/tu.mp3 -->
+    </audio>
+
+    <!-- Confetti canvas (eficiencia) -->
+    <canvas id="confetti-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:1000;"></canvas>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /* ================================
+           Utilidades / Variables globales
+           ================================ */
+        const bgAudio = document.getElementById('bg-audio');
+        const btnAudio = document.getElementById('btn-audio');
+        const toastEl = document.getElementById('toast');
+        const secrets = [
+            "Contigo descubrí que el hogar es una persona. 💗",
+            "Me haces creer en los milagros de todos los días. ✨",
+            "Eres mi destino favorito. 🌙",
+            "Quiero toda mi vida contigo. 💍",
+            "Tu sonrisa es mi superpoder. ⚡"
+        ];
+
+        /* --------------------------
+           Funciones de sonido (ping)
+           -------------------------- */
+        let audioCtx;
+        function ping(freq = 880, dur = 0.10, vol = 0.04) {
+            try {
+                audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.type = 'sine';
+                o.frequency.value = freq;
+                g.gain.value = vol;
+                o.connect(g);
+                g.connect(audioCtx.destination);
+                o.start();
+                setTimeout(() => o.stop(), dur * 1000);
+            } catch (e) {
+                // Browser may block AudioContext until a user gesture
+            }
+        }
+
+        /* ============================
+           Control de audio (accesible)
+           ============================ */
+        let playing = false;
+        function updateAudioButton() {
+            btnAudio.setAttribute('aria-pressed', String(playing));
+            btnAudio.textContent = playing ? '⏸️ Pausar música' : '🎵 Música';
+        }
+
+        // Intenta reproducir (respetando autoplay policies)
+        async function toggleAudio() {
+            try {
+                if (!playing) {
+                    await bgAudio.play();
+                    playing = true;
+                } else {
+                    bgAudio.pause();
+                    playing = false;
+                }
+            } catch (err) {
+                // Si falla por autoplay, requerimos interacción
+                playing = false;
+            }
+            updateAudioButton();
+            ping(880, .08, .05);
+        }
+
+        btnAudio.addEventListener('click', async () => {
+            // resume AudioContext on gesture (para iOS/Chrome)
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume().catch(() => { });
+            }
+            await toggleAudio();
+        });
+
+        // si el usuario clicka el body por primera vez, intentamos play (fallback)
+        document.body.addEventListener('pointerdown', function firstPlay() {
+            if (!playing) {
+                bgAudio.play().then(() => { playing = true; updateAudioButton(); }).catch(() => { });
+            }
+            document.body.removeEventListener('pointerdown', firstPlay);
+        }, { once: true });
+
+        /* ===========
+           Slideshow
+           =========== */
+        const captions = [
+            "Nuestro primer momento especial ✨",
+            "Tu risa es mi lugar favorito 🥰",
+            "Contigo, cada día es un regalo 💝"
+        ];
+        const slides = Array.from(document.querySelectorAll('#recuerdos .slide'));
+        const captionEl = document.getElementById('caption');
+        let slideIndex = 0;
+        let slideTimer = null;
+        const SLIDE_DELAY = 3500;
+
+        function showSlide(i) {
+            slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+            captionEl.textContent = captions[i] || '';
+            slideIndex = i;
+        }
+
+        function nextSlide() { showSlide((slideIndex + 1) % slides.length); }
+        function prevSlide() { showSlide((slideIndex - 1 + slides.length) % slides.length); }
+
+        // autoplay con pausa en hover / touch
+        function startSlideshow() {
+            stopSlideshow();
+            slideTimer = setInterval(nextSlide, SLIDE_DELAY);
+        }
+        function stopSlideshow() {
+            if (slideTimer) { clearInterval(slideTimer); slideTimer = null; }
+        }
+
+        showSlide(0);
+        startSlideshow();
+
+        // controles
+        document.getElementById('nextSlide').addEventListener('click', () => { nextSlide(); startSlideshow(); });
+        document.getElementById('prevSlide').addEventListener('click', () => { prevSlide(); startSlideshow(); });
+
+        const recuerdosEl = document.getElementById('recuerdos');
+        recuerdosEl.addEventListener('pointerenter', () => stopSlideshow());
+        recuerdosEl.addEventListener('pointerleave', () => startSlideshow());
+        // touch-friendly: pause when touching
+        recuerdosEl.addEventListener('touchstart', () => stopSlideshow(), { passive: true });
+        recuerdosEl.addEventListener('touchend', () => startSlideshow());
+
+        /* ===========================
+           Mensajes progresivos (eficiente)
+           =========================== */
+        const messages = [
+            "🎉 ¡Feliz cumpleaños, mi amor! Celebramos cada sonrisa y cada abrazo.",
+            "✨ A tu lado aprendí que el amor se escribe con detalles pequeñitos.",
+            "🌹 Eres mi paz, mi alegría y mi razón para soñar cada día.",
+            "🌟 Que este año te regale salud, risas y momentos inolvidables.",
+            "💞 Gracias por tu ternura y por construir un nosotros conmigo.",
+            "💌 Te amo hoy, mañana y siempre. ¡Feliz cumpleaños, vida!"
+        ];
+        function progressiveMessages() {
+            const card = document.getElementById('message-card');
+            let i = 0;
+            const addOne = () => {
+                if (i >= messages.length) return;
+                const p = document.createElement('p');
+                p.style.opacity = 0;
+                p.style.marginBottom = '.7rem';
+                p.innerHTML = messages[i];
+                card.appendChild(p);
+                // animación simple de fade-in con requestAnimationFrame
+                let op = 0;
+                function fade() {
+                    op += 0.04;
+                    p.style.opacity = op;
+                    if (op < 1) requestAnimationFrame(fade);
+                }
+                requestAnimationFrame(fade);
+                ping(880 + i * 60, 0.08, 0.04);
+                i++;
+                setTimeout(addOne, 1200);
+            };
+            addOne();
+        }
+
+        /* =====================
+           Mensaje sorpresa (toast)
+           ===================== */
+        function showToast(msg, timeout = 2200) {
+            toastEl.textContent = msg;
+            toastEl.style.display = 'block';
+            toastEl.style.opacity = '0';
+            toastEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 220, fill: 'forwards' });
+            setTimeout(() => {
+                toastEl.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, fill: 'forwards' }).onfinish = () => {
+                    toastEl.style.display = 'none';
+                };
+            }, timeout);
+        }
+
+        document.getElementById('btn-sorpresa').addEventListener('click', () => {
+            const msg = secrets[Math.floor(Math.random() * secrets.length)];
+            ping(1200, .08, .04);
+            showToast(msg);
+        });
+
+        /* ===========================
+           Juego: Atrapa el corazón
+           =========================== */
+        const btnJuego = document.getElementById('btn-juego');
+        const gameArea = document.getElementById('game-area');
+        const gameEl = document.getElementById('game');
+        let gameRunning = false;
+        let spawnHandle = null;
+        let gameTimer = null;
+        let timeLeft = 30;
+        let score = 0;
+
+        function startGame() {
+            gameRunning = true;
+            timeLeft = 30;
+            score = 0;
+            document.getElementById('score').textContent = score;
+            document.getElementById('time').textContent = timeLeft;
+            gameEl.classList.remove('d-none');
+            btnJuego.setAttribute('aria-pressed', 'true');
+
+            // timer
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('time').textContent = timeLeft;
+                if (timeLeft <= 0) stopGame();
+            }, 1000);
+
+            spawnHandle = setInterval(() => spawnHeart(), 600);
+        }
+
+        function stopGame() {
+            gameRunning = false;
+            clearInterval(gameTimer);
+            clearInterval(spawnHandle);
+            spawnHandle = null;
+            gameTimer = null;
+            // limpiar corazones
+            const existing = gameArea.querySelectorAll('.game-heart');
+            existing.forEach(e => e.remove());
+            gameEl.classList.add('d-none');
+            btnJuego.setAttribute('aria-pressed', 'false');
+
+            // mensaje final
+            let msg;
+            if (score < 10) msg = "😅 Lo importante es que lo intentaste, amor 💕";
+            else if (score < 20) msg = "✨ ¡Muy bien! Atrápame siempre así 💖";
+            else msg = "🏆 ¡Eres el campeón de mi corazón! 💘";
+            showToast(`${msg} (Puntos: ${score})`);
+            ping(600, .12, .05);
+        }
+
+        function toggleGame() {
+            if (!gameRunning) startGame(); else stopGame();
+        }
+        btnJuego.addEventListener('click', toggleGame);
+
+        function spawnHeart() {
+            // crear un corazón posicionado aleatoriamente dentro del área
+            const heart = document.createElement('div');
+            heart.className = 'game-heart';
+            heart.textContent = Math.random() < 0.5 ? '💖' : '❤️';
+
+            // calcular posicion relativa
+            const rect = gameArea.getBoundingClientRect();
+            const size = 22 + Math.random() * 18;
+            heart.style.fontSize = size + 'px';
+            heart.style.left = Math.max(8, Math.random() * (rect.width - 40)) + 'px';
+            heart.style.top = (40 + Math.random() * (rect.height - 80)) + 'px';
+
+            gameArea.appendChild(heart);
+
+            // vida del corazón
+            const life = setTimeout(() => heart.remove(), 1200);
+
+            // al hacer click / tap
+            function onHit() {
+                clearTimeout(life);
+                heart.remove();
+                score++;
+                document.getElementById('score').textContent = score;
+                ping(1000, .06, .04);
+            }
+            heart.addEventListener('pointerdown', onHit, { once: true, passive: true });
+        }
+
+        /* ===========================
+           Partículas/Confetti en canvas (con explosión inicial)
+           =========================== */
+        (function initConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            let W = canvas.width = window.innerWidth;
+            let H = canvas.height = window.innerHeight;
+            const pieces = [];
+            const colors = ['#ff4b5c', '#ffcd3c', '#4bf3ff', '#9d4edd', '#ff7eb9', '#ffffff'];
+
+            function resize() {
+                W = canvas.width = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+            }
+
+            window.addEventListener('resize', resize);
+
+            function random(min, max) { return Math.random() * (max - min) + min; }
+
+            class Piece {
+                constructor(x = random(0, W), y = random(-H, 0)) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = random(4, 10);
+                    this.color = colors[(Math.random() * colors.length) | 0];
+                    this.speedY = random(1, 4);
+                    this.tilt = random(-0.3, 0.3);
+                    this.angle = random(0, Math.PI * 2);
+                    this.spin = random(-0.1, 0.1);
+                }
+                update() {
+                    this.y += this.speedY;
+                    this.x += Math.sin(this.angle) * 0.6;
+                    this.angle += this.spin;
+                    if (this.y > H + 20) this.reset();
+                }
+                reset() {
+                    this.x = random(0, W);
+                    this.y = random(-H, 0);
+                    this.size = random(4, 10);
+                    this.color = colors[(Math.random() * colors.length) | 0];
+                    this.speedY = random(1, 4);
+                    this.angle = random(0, Math.PI * 2);
+                    this.spin = random(-0.1, 0.1);
+                }
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                    ctx.restore();
+                }
+            }
+
+            // crear piezas base
+            for (let i = 0; i < 120; i++) pieces.push(new Piece());
+
+            // explosión inicial: piezas adicionales con velocidad mayor
+            for (let i = 0; i < 60; i++) {
+                const p = new Piece(random(0, W), random(0, H));
+                p.speedY = random(3, 7);
+                pieces.push(p);
+            }
+
+            function loop() {
+                ctx.clearRect(0, 0, W, H);
+                for (const p of pieces) {
+                    p.update();
+                    p.draw();
+                }
+                requestAnimationFrame(loop);
+            }
+            loop();
+        })();
+
+        /* ============================
+           Estrellas (solo unas pocas)
+           ============================ */
+        (function createStars() {
+            const starsWrapper = document.querySelector('.stars');
+            // generar ~20 estrellas con posiciones aleatorias
+            for (let i = 0; i < 20; i++) {
+                const sp = document.createElement('span');
+                sp.style.left = Math.random() * 100 + 'vw';
+                sp.style.top = Math.random() * 100 + 'vh';
+                sp.style.opacity = Math.random() * 0.9;
+                sp.style.animationDuration = (1.5 + Math.random() * 2.5) + 's';
+                starsWrapper.appendChild(sp);
+            }
+        })();
+
+        /* ============================
+           Click/touch global: corazones pequeñitos
+           ============================ */
+        (function clickHearts() {
+            document.body.addEventListener('pointerdown', (e) => {
+                // efecto efímero
+                const span = document.createElement('div');
+                span.textContent = '💗';
+                span.style.position = 'fixed';
+                span.style.left = (e.clientX - 12) + 'px';
+                span.style.top = (e.clientY - 12) + 'px';
+                span.style.fontSize = '20px';
+                span.style.pointerEvents = 'none';
+                span.style.zIndex = 2000;
+                span.style.transition = 'transform .9s ease, opacity .9s ease';
+                document.body.appendChild(span);
+                requestAnimationFrame(() => {
+                    span.style.transform = 'translateY(-70px) scale(.9)';
+                    span.style.opacity = '0';
+                });
+                setTimeout(() => span.remove(), 900);
+                ping(900, .05, .03);
+            }, { passive: true });
+        })();
+
+        /* ============================
+           Inicialización final
+           ============================ */
+        window.addEventListener('load', () => {
+            progressiveMessages();
+            // intentamos cargar audio si hay permiso (no forzamos)
+            try { bgAudio.load(); } catch (e) { }
+            // setup slideshow caption inicial
+            captionEl.textContent = captions[0] || '';
+            // keyboard shortcuts (opcional)
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'm') btnAudio.click();
+                if (e.key === 'g') btnJuego.click();
+                if (e.key === 'ArrowRight') document.getElementById('nextSlide').click();
+                if (e.key === 'ArrowLeft') document.getElementById('prevSlide').click();
+            });
+        });
+
+        /* ============================
+           Prevención de memory leaks
+           ============================ */
+        window.addEventListener('beforeunload', () => {
+            // pausar audio
+            try { bgAudio.pause(); } catch (e) { }
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(() => console.log('Service Worker registrado'))
+                    .catch(err => console.error('Error al registrar SW:', err));
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
